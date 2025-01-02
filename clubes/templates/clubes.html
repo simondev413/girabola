@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="header" style="
+        background-color: #ffdf0f; 
+        font-size: 14px;
+        display: flex;
+        justify-content: center;">
+        <h1>Equipes</h1>
+    </div>
+    <div class="teams-grid">
+        {% for clube in clubes %}
+        <div class="team-list">
+            <span class="badge"> <img src="{{ clube.avatar.url }}" alt="img"></span>
+            <a href="{% url 'clubes:clube-detail' clube.pk  %}"> {{clube.nome}} </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

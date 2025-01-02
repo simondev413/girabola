@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="header" style="background-color: #ffdf0f;display: flex;justify-content: center;">
+        <h1>{{clube.nome}}</h1>
+    </div>
+    
+    <div class="teams-grid">
+        <div class="team" style="display: flex;justify-content: center;">                
+                <span class="badge-med"><img src="{{clube.avatar.url}}" alt="img"></span>
+        </div>
+        <div class="team-member" style="color: #141414;">
+            <h3>Treinador</h3>
+                {{ clube.treinador }}
+            <h3>Jogadores</h3>
+            {% for jogador in jogadores %}
+                <ul>
+                    <li>{{jogador.nome}} - {{jogador.posicao}} </li>
+                </ul>
+            {% endfor %}
+
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}

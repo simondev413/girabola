@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="main-content">
+    {%  for jogo in jogos %}
+    <div class="game-board">
+        <div class="game-date" >
+            <span class="date"> {{jogo.data.date }} </span> 
+            <span class="time">{{jogo.data.hour}}:{{jogo.data.minute}} </span>          
+        </div> 
+        <div class="game-data">
+            <div class="team">
+                <span class="badge">
+                    <img src="{{jogo.clube_casa.avatar.url }}"  alt="">
+                </span>
+                <span class="team-casa"> 
+                    <a href="{% url 'clubes:clube-detail' jogo.clube_casa.pk %}">{{jogo.clube_casa}}</a> 
+                </span>
+            </div>
+            <div class="score">
+                <a href="{% url 'jogos:jogo-detail' jogo.pk %}">
+                    {% if jogo.status == 'Não Realizado' %}
+                        <span class="status">{{jogo.status}}</span>
+                    {% else %}
+                       <span class="result">{{jogo.gols_casa}}:{{jogo.gols_fora}}</span>
+                    <!-- <span class="status">{{jogo.status}}</span> -->
+                    {% endif %}
+                </a>
+            </div>
+            <div class="team">
+                <span class="team-fora">
+                    <a href="{% url 'clubes:clube-detail' jogo.clube_fora.pk %}">{{jogo.clube_fora}}</a> 
+                </span>
+                <span class="badge">
+                    <img src="{{jogo.clube_fora.avatar.url }}" alt="">
+                </span>
+            </div>
+          
+        </div> 
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

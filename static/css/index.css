@@ -1,0 +1,167 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background-color: #242424;
+    font-family: 'Segoe UI';
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    list-style: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #aa110f;
+    padding-inline: 15px;
+}
+
+
+.navbar ul {
+    display: flex;
+    gap: 45px;
+    padding-top: 10px;
+}
+
+.navbar-item{
+    padding: 10px;
+    border-radius: 2px;
+    transition: 0.3s all ease-in-out;
+
+}
+
+.navbar-item:hover{
+    background-color: #fff;
+    color: #aa110f;
+}
+
+.brand span{
+    font-weight: 500;
+}
+
+.main-content{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    justify-content: center;
+    height:100%;
+    margin: 40px 15%
+}
+
+.game-board {
+    background-color: #fff;
+    height: 200px;
+    width: 98%;
+    color: #141414;
+    border-radius: 4px;
+}
+
+.game-date{
+    border-radius: 4px;
+    background: #ffdf0f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85px;
+    
+}
+.time,
+.date {
+    margin: 6px;
+}
+
+.game-data{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    height: 115px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    margin-inline: 20px;
+}
+
+.badge img{
+    width: 60px !important;
+    height: 60px !important;
+    margin-inline: 50px;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+}
+
+.result {
+    color: #ff0000cf;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.status {
+    font-size: 12px;
+    color: #0f64aa;
+}
+
+
+.teams-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 20px;
+    background-color: #fff;
+    padding: 28px;
+}
+.team-list{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+}
+
+.team-list img{
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(0,0,0,0.1);
+
+}
+
+.badge-med img{
+    width: 120px;
+    height: 120px;
+}
+
+.game-info {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+
+}

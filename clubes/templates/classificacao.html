@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 style="color: aliceblue;">Classificação</h1>
+
+    <table>
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Clube</th>
+                    <th>Pontos</th>
+                    <th>V</th>
+                    <th>E</th>
+                    <th>D</th>
+                    <th>GM</th>
+                    <th>GS</th>
+                    <th>DG</th>
+                    <th>Partidas</th>
+                    <th>Últimos 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for clube in ranking %}
+                <tr>
+                    <td> {{forloop.counter}} </td>
+                    <td>
+                        <span class="badge">
+                            <img src="{{  clube.avatar.url }}" alt="BandeiraTeam">
+                        </span>
+                        <a href="{% url 'clubes:clube-detail' clube.pk %}">{{clube.clube_nome}}</a>
+                    </td>
+                    <td>{{clube.pontos}}</td>
+                    <td>{{clube.vitorias}}</td>
+                    <td>{{clube.empates}}</td>
+                    <td>{{clube.derrotas}}</td>
+                    <td>{{clube.gols_marcados}}</td>
+                    <td>{{clube.gols_sofridos}}</td>
+                    <td>{{clube.saldo_gols}}</td>
+                    <td>{{clube.partidas}}</td>
+                    <td class="status">
+                        {% for resultado in clube.ultimos_jogos %}
+                            {% if resultado == 'win' %}
+                                <span class="win"></span>
+                            {% elif resultado == 'draw' %}
+                                <span class="draw"></span>
+                            {% else %}
+                                <span class="loss"></span>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p style="color: aliceblue;"><strong>Legenda:</strong></p>
+        <div class="status" style="color: aliceblue;">
+            <span class="win"></span>Vitória
+            <span class="draw" style="margin-left: 10px;"></span>Empate
+            <span class="loss" style="margin-left: 10px;"></span>Derrota
+        </div>
+
+</div>
+
+{% endblock content %}
