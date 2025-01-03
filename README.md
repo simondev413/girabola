@@ -1,6 +1,3 @@
-Aqui está um exemplo de README para o repositório:
-
-```markdown
 # Girabola
 
 Este é um projeto que implementa funcionalidades relacionadas ao campeonato de futebol **Girabola**, utilizando o framework Django. O projeto organiza informações de clubes, jogos e outras estatísticas.
