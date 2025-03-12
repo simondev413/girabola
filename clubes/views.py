@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.db.models import Sum, Q, F
 from .models import Clube,Jogador
-from jogos.models import Jogo
+from jogos.models import Jogo,Golo
 
 # Create your views here.
 
@@ -12,35 +12,40 @@ def classificacao(request):
     
     tabela_classificacao = []
     for clube in clubes:
-        gols_marcados = Jogo.objects.filter(clube_casa=clube).aggregate(Sum('gols_casa'))['gols_casa__sum'] or 0
-        gols_marcados += Jogo.objects.filter(clube_fora=clube).aggregate(Sum('gols_fora'))['gols_fora__sum'] or 0
+        gols_marcados = Jogo.objects.filter(clube_casa=clube,status='Realizado').aggregate(Sum('gols_casa'))['gols_casa__sum'] or 0
+        gols_marcados += Jogo.objects.filter(clube_fora=clube,status='Realizado').aggregate(Sum('gols_fora'))['gols_fora__sum'] or 0
 
-        gols_sofridos =Jogo.objects.filter(clube_casa=clube).aggregate(Sum('gols_fora'))['gols_fora__sum'] or 0
-        gols_sofridos += Jogo.objects.filter(clube_fora=clube).aggregate(Sum('gols_casa'))['gols_casa__sum'] or 0
+        gols_sofridos =Jogo.objects.filter(clube_casa=clube,status='Realizado').aggregate(Sum('gols_fora'))['gols_fora__sum'] or 0
+        gols_sofridos += Jogo.objects.filter(clube_fora=clube,status='Realizado').aggregate(Sum('gols_casa'))['gols_casa__sum'] or 0
 
         vitorias = Jogo.objects.filter(
             Q(clube_casa=clube,gols_casa__gt=F('gols_fora'))|
-            Q(clube_fora=clube,gols_fora__gt=F('gols_casa'))
+            Q(clube_fora=clube,gols_fora__gt=F('gols_casa')),
+            status='Realizado'
         ).count()
 
         empates =Jogo.objects.filter(
             Q(clube_casa=clube,gols_casa=F('gols_fora'))|
-            Q(clube_fora=clube,gols_fora=F('gols_casa'))
+            Q(clube_fora=clube,gols_fora=F('gols_casa')),
+            status='Realizado'
         ).count()
 
         derrotas = Jogo.objects.filter(
             Q(clube_casa=clube,gols_casa__lt=F('gols_fora'))|
-            Q(clube_fora=clube,gols_fora__lt=F('gols_casa'))
+            Q(clube_fora=clube,gols_fora__lt=F('gols_casa')),
+            status='Realizado'
         ).count()
 
         pontos = (vitorias*3) + empates
         
         partidas = Jogo.objects.filter(
-            Q(clube_casa=clube) | Q(clube_fora=clube)
+            Q(clube_casa=clube) | Q(clube_fora=clube),
+            status='Realizado'
             ).count()
         
         ultimos_jogos = Jogo.objects.filter(
-            Q(clube_casa=clube) | Q(clube_fora=clube)
+            Q(clube_casa=clube) | Q(clube_fora=clube),
+            status='Realizado'
             ).order_by('-data'[:5])
         
         ultimos_resultados = []
@@ -94,3 +99,21 @@ def clube_dados(request,pk):
         'jogadores':jogadores,
         }
     return render(request,'clube.html',context)
+
+def dados_jogador(request,pk,clube_pk):
+    clube = Clube.objects.get(pk=clube_pk)
+    jogador = Jogador.objects.get(pk=pk)
+    golos_marcados = Golo.objects.filter(jogador=jogador)
+    qntd_golos = golos_marcados.count()
+    partidas_jogadas = Jogo.objects.filter(
+        Q(clube_casa=clube) |
+        Q(clube_fora=clube)
+    ).count()
+    context = {
+        'jogador':jogador,
+        'golos_marcados':golos_marcados,
+        'qntd_golos':qntd_golos,
+        'partidas_jogadas':partidas_jogadas,
+        'clube':clube
+        }
+    return render(request,'jogador.html',context)

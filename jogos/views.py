@@ -3,6 +3,14 @@ from .models import Jogo,Golo
 from clubes.models import Jogador
 
 # Create your views here.
+
+def index(request):
+    jogos = Jogo.objects.all()
+    context = {'jogos':jogos}
+
+    return render(request,'jogos.html',context)
+
+
 def jogo_dados(request,pk):
     jogo = Jogo.objects.get(pk=pk)
     golos = Golo.objects.filter(partida=jogo)

@@ -3,39 +3,62 @@
 {% block content %}
 
 <div class="container" style="width: 60%;">
-    <div class="header" style="background-color: #ffdf0f;display: flex;justify-content: center;">
+    <div class="header" style="background-color: #ffdf0f;display: flex;justify-content: center;border-radius: 8px 8px 0px 0px;">
         <h3>{{ jogo.clube_casa }} vs {{ jogo.clube_fora}} </h3>
     </div> 
-    <div class="game-info">
-        <span class="result" style="font-size: 28px;">{{jogo.gols_casa}}:{{jogo.gols_fora}}</span>
-        
-        <div class="gols" style="color: #141414;">
+    <div class="game-info" style="border-radius: 0px 0px 8px 8px;">
+        {% if jogo.status == 'Não Realizado' %}
+            <span class="status">{{jogo.status}}</span>
+        {% else %}
+            <span class="result" style="font-size: 28px;">{{jogo.gols_casa}}:{{jogo.gols_fora}}</span>
+        {% endif %}
+        <div class="gols" style="
+        color: #141414;
+        display: flex;
+        flex-direction: column;
+        width: 50%;">
             <h3 style="display: flex;justify-content: center;">Golos</h3>
             {% for golo in golos_casa %}
-                <p class="gol-casa" style="margin-right: 200px;" >{{golo.jogador.nome}} <span class="gol-time" style="margin-left: 25px;font-weight: 500;" >{{golo.tempo}}</span> </p>
+                <p class="gol-casa" style="text-align: left;" >
+                    <a href="{% url 'clubes:jogador-detail' jogo.clube_casa.pk golo.jogador.pk %}"> {{golo.jogador.nome}} </a>
+                    <span class="gol-time" style="margin-left: 25px;font-weight: 500;" >{{golo.tempo}}</span> 
+                </p>
             {% endfor %}
             {% for golo in golos_fora %}
-                <p class="golo-fora" style="margin-left: 200px;"> <span class="gol-time" style="margin-right: 25px;font-weight: 500">{{golo.tempo}}</span> {{golo.jogador.nome}} </p>
+                <p class="golo-fora" style="
+                text-align: right;"> 
+                    <span class="gol-time" style="margin-right: 25px;font-weight: 500">{{golo.tempo}}</span> 
+                    <a href="{% url 'clubes:jogador-detail' jogo.clube_fora.pk golo.jogador.pk %}"> {{golo.jogador.nome}} </a>
+                </p>
             {% endfor %}
         </div>
         <h3 style="display: flex;justify-content: center;color: #141414;">Jogadores</h3>
         <div class="jogadores" style="
             color: #141414; 
             display: flex;
-            justify-content: space-between;flex-direction: row;gap: 140px;" >
-            <div class="jogadores-casa" style="display: flex;flex-direction: column;">
-                <h4>{{jogo.clube_casa}}</h4>
+            justify-content: space-between;
+            flex-direction: row;
+            gap: 140px;" >
+            <div class="jogadores-casa" style="
+            display: flex;
+            flex-direction: column;
+            text-align: start;">
+                <h4><a href="{% url 'clubes:clube-detail' jogo.clube_casa.pk  %}"> {{jogo.clube_casa}} </a></h4>
+                
                     {% for jogador in jogadores_casa %}
                         <p class="jogador">
-                            {{jogador.nome}} - {{jogador.numero}}
+                            <a href="{% url 'clubes:jogador-detail' jogador.clube.pk jogador.pk %}"> {{jogador.posicao}} - {{jogador.nome}}  {{jogador.numero}} </a>
                         </p>
                     {% endfor %}
             </div>
-            <div class="jogadores-fora" style="display: flex;flex-direction: column;">
-                <h4>{{jogo.clube_fora}}</h4>
+            <div class="jogadores-fora" style="
+            display: flex;
+            flex-direction: column;
+            text-align: end;">
+                <h4><a href="{% url 'clubes:clube-detail' jogo.clube_fora.pk  %}"> {{jogo.clube_fora}} </a></h4>
                 {% for jogador in jogadores_fora %}
                 <p class="jogador">
-                    {{jogador.numero}} - {{jogador.nome}}
+                    <a href="{% url 'clubes:jogador-detail' jogador.clube.pk jogador.pk %}">  {{jogador.numero}} {{jogador.nome}} - {{jogador.posicao}} </a>
                 </p>
                 {% endfor %}
             </div>

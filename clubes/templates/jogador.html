@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content  %}
+
+    
+<div class="container" style="height: 100vh;">
+    <div class="player-board">
+        <div class="player-header">
+            <h2>Dados jogador</h2>
+        </div>
+        <div class="player-data">
+            <span class="data">
+                <strong>Nome:</strong> {{jogador.nome}}
+            </span>
+            <span class="data">
+                <strong>Idade:</strong> {{jogador.idade}}
+            </span>
+            <span class="data">
+                <strong>Número:</strong> {{jogador.numero}}
+            </span>
+            <span class="data">
+                <strong>Clube:</strong> {{ jogador.clube}}
+            </span>
+            <span class="data">
+                <strong>Posição:</strong> {{jogador.posicao}}
+            </span>
+            <span class="data">
+                <strong>Golos Marcados:</strong> {{qntd_golos}}
+            </span>
+            <span class="data">
+                <strong>Partidas Jogadas:</strong> {{partidas_jogadas}}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% endblock content  %}

@@ -2,8 +2,11 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="header" style="background-color: #ffdf0f;display: flex;justify-content: center;">
+<div class="container" style="
+    width: 80%;
+    margin-top: 20px;">
+    <div class="header" style="background-color: #ffdf0f;display: flex;justify-content: center;
+    border-radius: 8px 8px 0px 0px;">
         <h1>{{clube.nome}}</h1>
     </div>
     
@@ -14,10 +17,12 @@
         <div class="team-member" style="color: #141414;">
             <h3>Treinador</h3>
                 {{ clube.treinador }}
+            <h3>Estadio</h3>
+                {{ clube.estadio }}            
             <h3>Jogadores</h3>
             {% for jogador in jogadores %}
                 <ul>
-                    <li>{{jogador.nome}} - {{jogador.posicao}} </li>
+                    <li> <a href="{% url 'clubes:jogador-detail' clube.pk jogador.pk %}">{{jogador.nome}} - {{jogador.posicao}} </a></li>
                 </ul>
             {% endfor %}
 

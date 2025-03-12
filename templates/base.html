@@ -15,6 +15,7 @@
 </head>
 <body>
 
+{% block header %}
 <header>
     <div class="brand">
         <!-- <span>GIRABOLA  </span> -->
@@ -22,7 +23,7 @@
     </div>
     <div class="navbar">    
         <ul>
-            <li><a href="{% url 'index' %}" class="navbar-item">Partidas</a></li>
+            <li><a href="{% url 'jogos:jogos' %}" class="navbar-item">Partidas</a></li>
             <li><a href="{% url 'clubes:ranking' %}" class="navbar-item">Classificação</a></li>
             <li><a href="{% url 'clubes:clubes-list' %}" class="navbar-item">Equipes</a></li>
         </ul>
@@ -32,6 +33,7 @@
             admin </a>
     </div>
 </header>
+{% endblock header %}
 
 {% block content %}
 

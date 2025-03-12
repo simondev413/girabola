@@ -90,6 +90,7 @@ header {
     align-items: center;
     justify-content:space-between;
     height: 115px;
+    border-radius: 8px;
 }
 
 .team {
@@ -131,6 +132,7 @@ header {
     gap: 20px;
     background-color: #fff;
     padding: 28px;
+    border-radius: 0px 0px 8px 8px;
 }
 .team-list{
     display: flex;
@@ -164,4 +166,39 @@ header {
     flex-direction: column;
     padding: 20px;
 
+}
+
+.player-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 80%;
+}
+
+.player-header {
+    background-color: #ffdf0f;
+    width: 60%;
+    padding: 20px;
+    border-radius: 8px 8px 0px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-name {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.player-data {
+    height: 80%;
+    width: 60%;
+    background-color: #fff;
+    padding: 20px;
+    color: #141414;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-radius: 0px 0px 8px 8px;
 }

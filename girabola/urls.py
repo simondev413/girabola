@@ -30,7 +30,7 @@ def index(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index,name='index'),
+    # path('',index,name='index'),
     path('',include('clubes.urls'), name='clubes'),
     path('',include('jogos.urls'),name='jogos')
 ]
